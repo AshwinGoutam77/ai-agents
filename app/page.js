@@ -6,10 +6,8 @@ import Banner from "./components/Banner"
 import HeroSection from "./components/HeroSection"
 import CompaniesSection from "./components/CompaniesSection"
 import HireSection from "./components/HireSection"
-import CTA from "./components/CTA"
 import GetStartedSection from "./components/GetStartedSection"
 import Footer from "./components/Footer"
-import CallToAction from "./components/CTA"
 
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false)
