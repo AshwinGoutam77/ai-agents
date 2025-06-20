@@ -91,12 +91,10 @@ export default function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="group relative bg-gradient-to-r from-gray-900 to-gray-700 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl overflow-hidden">
-              <span className="relative z-10">Explore AI Agents</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="absolute -top-2 -left-2 w-4 h-4 bg-white/20 rounded-full group-hover:animate-ping"></div>
+            <button className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden">
+              <span className="relative z-10">Start Hiring Now</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
-
             <button className="group text-gray-700 hover:text-gray-900 px-8 py-4 rounded-full text-lg font-medium transition-all duration-300 border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg">
               <span className="flex items-center space-x-2">
                 <span>Watch Demo</span>
