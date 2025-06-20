@@ -18,14 +18,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div className="flex items-center space-x-2 group cursor-pointer">
+          {/* <div className="flex items-center space-x-2 group cursor-pointer">
             <div className="w-8 h-8 bg-gradient-to-br from-gray-900 to-gray-700 rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
               <span className="text-white font-bold text-sm">△</span>
             </div>
             <span className="text-xl font-bold text-gray-900 group-hover:text-gray-700 transition-colors duration-300">
               AGENTS
             </span>
-          </div>
+          </div> */}
+          <img src="https://toolapi.devwings.com/assets/chat/chats/2025-06/200625050843200625050608ChatGPTImageJun20_2025_05_05_41PM-removebg-preview.png" alt="logo" width={100} />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
