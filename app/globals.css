@@ -248,7 +248,11 @@
 }
 
 .ai-service-card-wrapper:hover .icon {
-  background: var(--gradient);
+  background: linear-gradient(180deg, #9333ea 100%, #2563eb 80.85%, #2563eb);
+  color: #fff;
+}
+
+.ai-service-card-wrapper:hover .icon svg {
   color: #fff;
 }
 
