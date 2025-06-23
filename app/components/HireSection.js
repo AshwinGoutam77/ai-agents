@@ -134,7 +134,7 @@ export default function HireSection() {
                       <Star />
                     </div>
                   </div>
-                  <button className="mt-4 flex items-center group text-gray-700 hover:text-gray-900 px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg bg-white">
+                  <button className="mt-4 flex items-center group text-gray-700 hover:text-gray-900 px-6 py-3 w-fit rounded-full text-lg font-medium transition-all duration-300 border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg bg-white">
                     <span className="flex items-center justify-center w-full space-x-2">
                       <span>Hire Now</span>
                       <svg
@@ -159,7 +159,7 @@ export default function HireSection() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
 
-            <button className="group text-gray-700 hover:text-gray-900 px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg bg-white">
+            <button className="group text-gray-700 hover:text-gray-900 px-6 py-3 w-fit rounded-full text-lg font-medium transition-all duration-300 border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg bg-white">
               <span className="flex items-center space-x-2">
                 <span>Learn More</span>
                 <svg

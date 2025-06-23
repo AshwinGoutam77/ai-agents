@@ -288,3 +288,7 @@
   color: #ffc107;
   width: 16px;
 }
+
+.w-fit{
+  width: fit-content !important;
+}
