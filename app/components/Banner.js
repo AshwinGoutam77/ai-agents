@@ -43,9 +43,9 @@ export default function Banner() {
               <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
               <div className="absolute inset-0 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
             </div>
-            <span className="text-sm font-medium">🚀 Hire your first AI Agent for free</span>
+            <span className="text-sm font-medium">Hire your first AI Agent for free</span>
           </div>
-          <span className="text-yellow-300 animate-bounce">→</span>
+          <span className="text-yellow-300">→</span>
           <Link
             href="/signup"
             className="group relative text-yellow-300 hover:text-yellow-200 font-semibold transition-all duration-300"
