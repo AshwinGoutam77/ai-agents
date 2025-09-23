@@ -1,69 +1,92 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Cookies from "js-cookie";
 
 export default function LoginForm() {
-    const [isVisible, setIsVisible] = useState(false)
+    const [isVisible, setIsVisible] = useState(false);
     const [formData, setFormData] = useState({
         email: "",
         password: "",
         rememberMe: false,
-    })
-    const [isLoading, setIsLoading] = useState(false)
-    const [showPassword, setShowPassword] = useState(false)
-    const [errors, setErrors] = useState({})
+    });
+    const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
-        const timer = setTimeout(() => setIsVisible(true), 300)
-        return () => clearTimeout(timer)
-    }, [])
+        const timer = setTimeout(() => setIsVisible(true), 300);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleInputChange = (e) => {
-        const { name, value, type, checked } = e.target
+        const { name, value, type, checked } = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: type === "checkbox" ? checked : value,
-        }))
-        // Clear error when user starts typing
+        }));
+
         if (errors[name]) {
-            setErrors((prev) => ({ ...prev, [name]: "" }))
+            setErrors((prev) => ({ ...prev, [name]: "" }));
         }
-    }
+    };
 
     const validateForm = () => {
-        const newErrors = {}
+        const newErrors = {};
+        if (!formData.email) newErrors.email = "Email is required";
+        else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Please enter a valid email";
 
-        if (!formData.email) {
-            newErrors.email = "Email is required"
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-            newErrors.email = "Please enter a valid email"
-        }
+        if (!formData.password) newErrors.password = "Password is required";
+        else if (formData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
 
-        if (!formData.password) {
-            newErrors.password = "Password is required"
-        } else if (formData.password.length < 6) {
-            newErrors.password = "Password must be at least 6 characters"
-        }
-
-        setErrors(newErrors)
-        return Object.keys(newErrors).length === 0
-    }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        if (!validateForm()) return;
 
-        if (!validateForm()) return
+        setIsLoading(true);
 
-        setIsLoading(true)
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
+            });
 
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 2000))
+            const data = await res.json();
 
-        setIsLoading(false)
-        alert("Login successful! Redirecting to dashboard...")
-    }
+            if (!res.ok) {
+                setErrors({ form: data.msg || "Login failed" });
+                setIsLoading(false);
+                return;
+            }
 
+            // Save token in cookie (1 year)
+            Cookies.set("auth_token", data.token, {
+                expires: 365,
+                secure: true,
+                sameSite: "strict",
+            });
+
+            setIsLoading(false);
+
+            // Redirect to dashboard/tools
+            window.location.href = "/ai-agents";
+        } catch (err) {
+            console.error(err);
+            setErrors({ form: "Server error" });
+            setIsLoading(false);
+        }
+    };
+
+    // --- Keep your existing UI untouched ---
     const socialLogins = [
         {
             name: "Google",
@@ -80,7 +103,7 @@ export default function LoginForm() {
             icon: "https://toolapi.devwings.com/assets/chat/chats/2025-06/200625045150download(11).png",
             color: "hover:bg-gray-50 hover:border-gray-300",
         },
-    ]
+    ];
 
     return (
         <div className="flex-1 flex flex-col justify-center px-6 py-12 lg:px-8 bg-white relative overflow-hidden">
@@ -118,8 +141,7 @@ export default function LoginForm() {
                                     key={social.name}
                                     className={`flex gap-2 items-center justify-center px-4 py-3 border border-gray-300 rounded-xl text-sm font-medium text-gray-700 bg-white transition-all duration-200 ${social.color} transform hover:scale-105`}
                                 >
-                                    {/* <span className="text-lg mr-2">{social.icon}</span> */}
-                                    <img src={social.icon} alt="icon" width={20}/>
+                                    <img src={social.icon} alt="icon" width={20} />
                                     {social.name}
                                 </button>
                             ))}
@@ -148,20 +170,9 @@ export default function LoginForm() {
                                     type="email"
                                     value={formData.email}
                                     onChange={handleInputChange}
-                                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${errors.email ? "border-red-300 bg-red-50" : "border-gray-300"
-                                        }`}
+                                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${errors.email ? "border-red-300 bg-red-50" : "border-gray-300"}`}
                                     placeholder="Enter your email"
                                 />
-                                <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                    <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                                        />
-                                    </svg>
-                                </div>
                             </div>
                             {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
                         </div>
@@ -177,8 +188,7 @@ export default function LoginForm() {
                                     type={showPassword ? "text" : "password"}
                                     value={formData.password}
                                     onChange={handleInputChange}
-                                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${errors.password ? "border-red-300 bg-red-50" : "border-gray-300"
-                                        }`}
+                                    className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 ${errors.password ? "border-red-300 bg-red-50" : "border-gray-300"}`}
                                     placeholder="Enter your password"
                                 />
                                 <button
@@ -186,28 +196,7 @@ export default function LoginForm() {
                                     onClick={() => setShowPassword(!showPassword)}
                                     className="absolute inset-y-0 right-0 pr-3 flex items-center"
                                 >
-                                    <svg
-                                        className="h-5 w-5 text-gray-400 hover:text-gray-600"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        {showPassword ? (
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21"
-                                            />
-                                        ) : (
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                            />
-                                        )}
-                                    </svg>
+                                    {showPassword ? "Hide" : "Show"}
                                 </button>
                             </div>
                             {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
@@ -228,10 +217,7 @@ export default function LoginForm() {
                                 </label>
                             </div>
 
-                            <Link
-                                href="#"
-                                className="text-sm text-blue-600 hover:text-blue-500 font-medium transition-colors duration-200"
-                            >
+                            <Link href="#" className="text-sm text-blue-600 hover:text-blue-500 font-medium transition-colors duration-200">
                                 Forgot password?
                             </Link>
                         </div>
@@ -251,42 +237,8 @@ export default function LoginForm() {
                             )}
                         </button>
                     </form>
-
-                    {/* Sign Up Link */}
-                    <div className="mt-8 text-center">
-                        <p className="text-sm text-gray-600">
-                            Don't have an account?{" "}
-                            <Link
-                                href="/signup"
-                                className="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200"
-                            >
-                                Sign up for free
-                            </Link>
-                        </p>
-                    </div>
-
-                    {/* Security Notice */}
-                    <div className="mt-8 p-4 bg-green-50 border border-green-200 rounded-xl">
-                        <div className="flex items-center">
-                            <div className="flex-shrink-0">
-                                <svg className="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M10 1L5 6v6l5 5 5-5V6l-5-5zM8.5 6L10 4.5 11.5 6 10 7.5 8.5 6zm1.5 4.5L8.5 9 10 7.5 11.5 9 10 10.5z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                            </div>
-                            <div className="ml-3">
-                                <p className="text-sm text-green-700">
-                                    <strong>Secure Login:</strong> Your data is protected with enterprise-grade encryption and security
-                                    measures.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }

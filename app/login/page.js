@@ -1,8 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import LoginForm from "../components/LoginForm"
-import LoginHero from "../components/LoginHero"
+import LoginForm from "../components/LoginForm" 
 import Header from "../components/Header"
 
 export default function LoginPage() {
