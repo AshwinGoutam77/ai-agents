@@ -1,21 +1,23 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-
+import { useState } from "react";
+import Link from "next/link";
+import Profile from "./Profile";
+import { isUserLoggedIn } from "@/lib/authClient";
 export default function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  let loggedIn = isUserLoggedIn();
+  
 
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Hire AI Agents", href: "/ai-agents" },
     { name: "Request AI Agent", href: "/request-ai-agents" },
     { name: "About Us", href: "/about-us" },
-  ]
-
+  ];
   return (
-    <header className="relative z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className=" z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 sticky top-0 shadow-sm">
+      <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
           {/* <div className="flex items-center space-x-2 group cursor-pointer">
@@ -26,7 +28,11 @@ export default function Header() {
               AGENTS
             </span>
           </div> */}
-          <img src="https://toolapi.devwings.com/assets/chat/chats/2025-06/200625050843200625050608ChatGPTImageJun20_2025_05_05_41PM-removebg-preview.png" alt="logo" width={100} />
+          <img
+            src="https://toolapi.devwings.com/assets/chat/chats/2025-06/200625050843200625050608ChatGPTImageJun20_2025_05_05_41PM-removebg-preview.png"
+            alt="logo"
+            width={100}
+          />
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
@@ -41,12 +47,15 @@ export default function Header() {
               </Link>
             ))}
           </nav>
-
-          <Link href='/login'>
-            <button className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-full hover:from-gray-800 hover:to-gray-600 transition-all duration-300 font-medium mt-2">
-              Sign Up
-            </button>
-          </Link>
+          {loggedIn ? (
+            <Profile />
+          ) : (
+            <Link href="/login" className="hidden md:block">
+              <button className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-full hover:from-gray-800 hover:to-gray-600 transition-all duration-300 font-medium mt-2">
+                Sign Up
+              </button>
+            </Link>
+          )}
 
           {/* Mobile Menu Button */}
           <button
@@ -55,13 +64,19 @@ export default function Header() {
           >
             <div className="w-6 h-6 flex flex-col justify-center space-y-1">
               <span
-                className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`}
+                className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${
+                  isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
+                }`}
               ></span>
               <span
-                className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? "opacity-0" : ""}`}
+                className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${
+                  isMobileMenuOpen ? "opacity-0" : ""
+                }`}
               ></span>
               <span
-                className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`}
+                className={`block h-0.5 w-6 bg-gray-600 transition-all duration-300 ${
+                  isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+                }`}
               ></span>
             </div>
           </button>
@@ -69,7 +84,9 @@ export default function Header() {
 
         {/* Mobile Menu */}
         <div
-          className={`md:hidden transition-all duration-300 overflow-hidden ${isMobileMenuOpen ? "max-h-64 pb-4" : "max-h-0"}`}
+          className={`md:hidden transition-all duration-300 overflow-hidden ${
+            isMobileMenuOpen ? "max-h-80 pb-4" : "max-h-0"
+          }`}
         >
           <nav className="flex flex-col space-y-3 pt-4 border-t border-gray-100">
             {navItems.map((item) => (
@@ -82,7 +99,7 @@ export default function Header() {
                 {item.name}
               </Link>
             ))}
-            <Link href='/login'>
+            <Link href="/login">
               <button className="bg-gradient-to-r from-gray-900 to-gray-700 text-white px-6 py-2.5 rounded-full hover:from-gray-800 hover:to-gray-600 transition-all duration-300 font-medium mt-2">
                 Sign Up
               </button>
@@ -91,5 +108,5 @@ export default function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }

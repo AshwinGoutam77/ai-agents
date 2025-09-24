@@ -11,12 +11,13 @@ import {
   Text,
   HeartPulse,
   Star,
-} from "lucide-react";
-import { isLoggedInClient } from "@/lib/authClient";
+} from "lucide-react"; 
+import { isUserLoggedIn } from "@/lib/authClient"; 
+import Link from "next/link";
 
 export default function HireSection() {
-  const [isVisible, setIsVisible] = useState(false);
-  const loggedIn = isLoggedInClient();
+  const [isVisible, setIsVisible] = useState(false); 
+  const loggedIn = isUserLoggedIn()
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -39,55 +40,56 @@ export default function HireSection() {
       title: "Machine Learning Model Training",
       description:
         "Build and train predictive models using structured and unstructured data.",
+        url:"/ai-agents/system-improvement"
     },
-    {
-      icon: <MessageCircle />,
-      title: "Chatbot Development",
-      description:
-        "Create intelligent conversational agents powered by natural language understanding.",
-    },
-    {
-      icon: <BarChart3 />,
-      title: "Data Analysis & Visualization",
-      description:
-        "Extract insights and create visualizations from complex datasets.",
-    },
-    {
-      icon: <Image />,
-      title: "Computer Vision",
-      description:
-        "Enable machines to recognize and process images and videos for object detection, recognition, and more.",
-    },
-    {
-      icon: <Mic />,
-      title: "Speech Recognition",
-      description:
-        "Transcribe and understand spoken language using automatic speech recognition (ASR) models.",
-    },
-    {
-      icon: <TrendingUp />,
-      title: "Predictive Analytics",
-      description:
-        "Forecast future trends using historical data and machine learning models.",
-    },
-    {
-      icon: <Text />,
-      title: "Natural Language Processing (NLP)",
-      description:
-        "Analyze and understand text data with sentiment analysis, keyword extraction, and language modeling.",
-    },
-    {
-      icon: <ShieldCheck />,
-      title: "AI for Cybersecurity",
-      description:
-        "Detect and prevent threats using anomaly detection and real-time threat intelligence.",
-    },
-    {
-      icon: <HeartPulse />,
-      title: "AI in Healthcare",
-      description:
-        "Support diagnostics, personalized treatment, and patient care with AI models trained on medical data.",
-    },
+    // {
+    //   icon: <MessageCircle />,
+    //   title: "Chatbot Development",
+    //   description:
+    //     "Create intelligent conversational agents powered by natural language understanding.",
+    // },
+    // {
+    //   icon: <BarChart3 />,
+    //   title: "Data Analysis & Visualization",
+    //   description:
+    //     "Extract insights and create visualizations from complex datasets.",
+    // },
+    // {
+    //   icon: <Image />,
+    //   title: "Computer Vision",
+    //   description:
+    //     "Enable machines to recognize and process images and videos for object detection, recognition, and more.",
+    // },
+    // {
+    //   icon: <Mic />,
+    //   title: "Speech Recognition",
+    //   description:
+    //     "Transcribe and understand spoken language using automatic speech recognition (ASR) models.",
+    // },
+    // {
+    //   icon: <TrendingUp />,
+    //   title: "Predictive Analytics",
+    //   description:
+    //     "Forecast future trends using historical data and machine learning models.",
+    // },
+    // {
+    //   icon: <Text />,
+    //   title: "Natural Language Processing (NLP)",
+    //   description:
+    //     "Analyze and understand text data with sentiment analysis, keyword extraction, and language modeling.",
+    // },
+    // {
+    //   icon: <ShieldCheck />,
+    //   title: "AI for Cybersecurity",
+    //   description:
+    //     "Detect and prevent threats using anomaly detection and real-time threat intelligence.",
+    // },
+    // {
+    //   icon: <HeartPulse />,
+    //   title: "AI in Healthcare",
+    //   description:
+    //     "Support diagnostics, personalized treatment, and patient care with AI models trained on medical data.",
+    // },
   ];
   return (
     <section
@@ -140,8 +142,8 @@ export default function HireSection() {
                       <Star />
                     </div>
                   </div>
-                  <a
-                    href={loggedIn ? "/" : "#"}
+                  <Link
+                    href={service.url}
                     className="mt-4 flex items-center group text-gray-700 hover:text-gray-900 px-6 py-3 w-fit rounded-full text-lg font-medium transition-all duration-300 border-2 border-gray-200 hover:border-gray-300 hover:shadow-lg bg-white"
                   >
                     <span className="flex items-center justify-center w-full space-x-2">
@@ -160,7 +162,7 @@ export default function HireSection() {
                         />
                       </svg>
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             ))}

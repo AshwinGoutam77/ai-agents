@@ -47,7 +47,7 @@ export default function Banner() {
           </div>
           <span className="text-yellow-300">→</span>
           <Link
-            href="/signup"
+            href="/register"
             className="group relative text-yellow-300 hover:text-yellow-200 font-semibold transition-all duration-300"
           >
             <span className="relative z-10">Sign Up Now</span>

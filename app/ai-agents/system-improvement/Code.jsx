@@ -1,18 +1,27 @@
 "use client";
-import { useState } from "react";    
+import Header from "@/app/components/Header";
+import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-// import "../tools.css";
- 
-const Code= ({ token }) => {
+import AgentsHero from "@/app/components/AgentsHero";
+import Container from "@/app/components/Container";
+import Cookies from "js-cookie";
+import { useTool } from "@/hooks/useTool";
+import { saveChat } from "@/hooks/useChatHistory";
+const Code = ({ token }) => {
   const [projectDescription, setProjectDescription] = useState("");
-  const [suggestionType, setSuggestionType] = useState(""); // Default: AI
-
+  const [suggestionType, setSuggestionType] = useState("");
   const [results, setResults] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleGenerate = async (e) => {
     e.preventDefault();
+
+    const email = Cookies.get("user_email"); // read fresh each time
+    if (!email) {
+      setError("Please login first.");
+      return;
+    }
 
     if (!projectDescription.trim()) {
       setError("Enter project description");
@@ -21,8 +30,14 @@ const Code= ({ token }) => {
 
     setLoading(true);
     setError("");
-
     try {
+      const usetool = await useTool("system-improvement", email);
+      if (!usetool?.allowed) {
+        setError("Daily usage limit reached for this tool.");
+        setLoading(false);
+        return;
+      }
+
       const response = await fetch("https://api.devwings.com/ai/Ai-features", {
         method: "POST",
         headers: {
@@ -36,12 +51,19 @@ const Code= ({ token }) => {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`Error: ${response.status}`);
 
       const data = await response.json();
       setResults(data.suggestions || "No suggestions returned.");
+      await saveChat({
+        email,
+        toolName: "system-improvement",
+        prompt: {
+          project_description: projectDescription,
+          suggestion_type: suggestionType,
+        },
+        response: data,
+      });
     } catch (err) {
       console.error(err);
       setError("Failed to generate suggestions. Please try again.");
@@ -51,10 +73,10 @@ const Code= ({ token }) => {
   };
 
   return (
-    <div>
-    
-
-      <div>
+    <>
+      <Header />
+      <AgentsHero />
+      <Container>
         <form onSubmit={handleGenerate} className="flex flex-col gap-3 my-10">
           <h4>Enter Project Info</h4>
 
@@ -74,7 +96,9 @@ const Code= ({ token }) => {
             className="p-3 border rounded-md"
             required
           >
-            <option value="" defaultValue={""}>Select Suggestion Type</option>
+            <option value="" defaultValue={""}>
+              Select Suggestion Type
+            </option>
             <option value="1">AI Features</option>
             <option value="2">Non-AI Features</option>
             <option value="3">Both</option>
@@ -88,7 +112,7 @@ const Code= ({ token }) => {
             isIcon={false}
             type="submit"
           /> */}
-          <button>{loading ? "Generating..." : "Generate Suggestions"}</button>
+          <button className=" bg-gradient-to-r from-blue-600 to-purple-600 w-fit text-white py-3 px-4 rounded-full">{loading ? "Generating..." : "Generate Suggestions"}</button>
         </form>
 
         {/* Results */}
@@ -102,8 +126,8 @@ const Code= ({ token }) => {
         ) : (
           ""
         )}
-      </div>
-    </div>
+      </Container>
+    </>
   );
 };
 
