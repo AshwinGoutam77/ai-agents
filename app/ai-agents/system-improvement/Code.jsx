@@ -4,9 +4,9 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import AgentsHero from "@/app/components/AgentsHero";
 import Container from "@/app/components/Container";
-import Cookies from "js-cookie"; 
-import { useTool} from "../../../hooks/useTool"
+import Cookies from "js-cookie";
 import { saveChat } from "@/hooks/useChatHistory";
+import { useTool } from "@/hooks/useTool";
 const Code = ({ token }) => {
   const [projectDescription, setProjectDescription] = useState("");
   const [suggestionType, setSuggestionType] = useState("");
@@ -112,7 +112,9 @@ const Code = ({ token }) => {
             isIcon={false}
             type="submit"
           /> */}
-          <button className=" bg-gradient-to-r from-blue-600 to-purple-600 w-fit text-white py-3 px-4 rounded-full">{loading ? "Generating..." : "Generate Suggestions"}</button>
+          <button className=" bg-gradient-to-r from-blue-600 to-purple-600 w-fit text-white py-3 px-4 rounded-full">
+            {loading ? "Generating..." : "Generate Suggestions"}
+          </button>
         </form>
 
         {/* Results */}
