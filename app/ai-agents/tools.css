@@ -1,0 +1,36 @@
+.agents-hero {
+  background: linear-gradient(
+    247deg,
+    rgb(255 255 255 / 0%),
+    #843aeb1f 50%,
+    #6d457126 80.85%,
+    rgba(84, 73, 228, 0)
+  );
+  min-height: 23rem;
+  display: grid;
+  place-content: center;
+  border-bottom-left-radius: 60px;
+  border-bottom-right-radius: 60px;
+}
+.agents-detail input,
+.agents-detail select,
+.agents-detail textarea {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 10px 15px;
+  min-height: 40px;
+  &:active {
+    outline: none;
+    border-color: #6a46f0;
+    box-shadow: 0 0 0 2px rgb(106 70 240 / 0.5);
+  }
+  &:focus {
+    outline: none;
+    border-color: #6a46f0;
+    box-shadow: 0 0 0 2px rgb(106 70 240 / 0.5);
+  }
+}
+
+.agents-detail select::-ms-expand {
+  display: none;
+}

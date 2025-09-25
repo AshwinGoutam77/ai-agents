@@ -2,11 +2,12 @@
 import Header from "@/app/components/Header";
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
-import AgentsHero from "@/app/components/AgentsHero";
 import Container from "@/app/components/Container";
 import Cookies from "js-cookie";
 import { saveChat } from "@/hooks/useChatHistory";
 import { useTool } from "../../../hooks/useTool";
+import "../tools.css";
+import Loader from "@/components/ui/Loader";
 const Code = ({ token }) => {
   const [projectDescription, setProjectDescription] = useState("");
   const [suggestionType, setSuggestionType] = useState("");
@@ -27,7 +28,10 @@ const Code = ({ token }) => {
       setError("Enter project description");
       return;
     }
-
+    if (projectDescription.trim().length < 30) {
+      setError("Project description must be at least 30 characters long.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
@@ -74,61 +78,66 @@ const Code = ({ token }) => {
 
   return (
     <>
-      <Header />
-      <AgentsHero />
-      <Container>
-        <form onSubmit={handleGenerate} className="flex flex-col gap-3 my-10">
-          <h4>Enter Project Info</h4>
+      <div className="agents-detail">
+        <Header />
+        {/* <AgentsHero /> */}
 
-          {/* Project Description */}
-          <textarea
-            placeholder="Paste project description here..."
-            value={projectDescription}
-            onChange={(e) => setProjectDescription(e.target.value)}
-            className="p-3 border rounded-md w-full"
-            rows={6}
-          />
+        <Container>
+          <form onSubmit={handleGenerate} className="flex flex-col gap-3 my-10">
+            <h4>Enter Project Info</h4>
 
-          {/* Suggestion Type */}
-          <select
-            value={suggestionType}
-            onChange={(e) => setSuggestionType(e.target.value)}
-            className="p-3 border rounded-md"
-            required
-          >
-            <option value="" defaultValue={""}>
-              Select Suggestion Type
-            </option>
-            <option value="1">AI Features</option>
-            <option value="2">Non-AI Features</option>
-            <option value="3">Both</option>
-          </select>
+            {/* Project Description */}
+            <textarea
+              placeholder="Paste project description here..."
+              value={projectDescription}
+              onChange={(e) => setProjectDescription(e.target.value)}
+              className="p-3 border rounded-md w-full"
+              rows={6}
+            />
 
-          <p className="text-rose-500">{error}</p>
+            {/* Suggestion Type */}
+            <select
+              value={suggestionType}
+              onChange={(e) => setSuggestionType(e.target.value)}
+              className="p-3 border rounded-md"
+              required
+            >
+              <option value="" defaultValue={""}>
+                Select Suggestion Type
+              </option>
+              <option value="1">AI Features</option>
+              <option value="2">Non-AI Features</option>
+              <option value="3">Both</option>
+            </select>
 
-          {/* <Secondarybtn
+            <p className="text-rose-500">{error}</p>
+
+            {/* <Secondarybtn
             disabled={loading}
             text={loading ? "Generating..." : "Generate Suggestions"}
             isIcon={false}
             type="submit"
           /> */}
-          <button className=" bg-gradient-to-r from-blue-600 to-purple-600 w-fit text-white py-3 px-4 rounded-full">
-            {loading ? "Generating..." : "Generate Suggestions"}
-          </button>
-        </form>
+            <button className=" bg-gradient-to-r from-blue-600 to-purple-600 w-fit text-white py-3 px-4 rounded-full">
+              {loading ? "Generating..." : "Generate Suggestions"}
+            </button>
+          </form>
 
-        {/* Results */}
-        {results ? (
-          <div className="space-y-4 my-10">
-            <h3>Generated Feature Suggestions</h3>
-            <div className="p-4 rounded-lg shadow bg-white whitespace-pre-line max-h-[700px] overflow-auto pb-4">
-              <ReactMarkdown>{results}</ReactMarkdown>
+          {/* Results */}
+          {results ? (
+            <div className="space-y-4 my-10">
+              <h3>Generated Feature Suggestions</h3>
+              <div className="p-4 rounded-lg shadow bg-white whitespace-pre-line max-h-[700px] overflow-auto pb-4">
+                <ReactMarkdown>{results}</ReactMarkdown>
+              </div>
             </div>
-          </div>
-        ) : (
-          ""
-        )}
-      </Container>
+          ) : (
+            ""
+          )}
+
+          <Loader/>
+        </Container>
+      </div>
     </>
   );
 };

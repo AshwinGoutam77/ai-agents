@@ -11,11 +11,15 @@ import {
   Text,
   HeartPulse,
   Star,
-} from "lucide-react";  
+  Settings,
+  RotateCw,
+  PenLine,
+  Mail,
+} from "lucide-react";
 import Link from "next/link";
 
 export default function HireSection() {
-  const [isVisible, setIsVisible] = useState(false);  
+  const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -34,12 +38,34 @@ export default function HireSection() {
 
   const AiservicesData = [
     {
-      icon: <Brain />,
-      title: "Machine Learning Model Training",
+      icon: <Mail />,
+      title: "Business Email Drafting",
       description:
-        "Build and train predictive models using structured and unstructured data.",
-        url:"/ai-agents/system-improvement"
+        "Generate clear, professional emails tailored to specific business contexts.",
+      url: "/ai-agents/business-email-drafting",
     },
+    {
+      icon: <PenLine />,
+      title: "Personalized Letter Drafting",
+      description:
+        "Craft custom letters with a personal touch for any occasion or recipient.",
+      url: "/ai-agents/personalized-letter-drafting",
+    },
+    {
+      icon: <RotateCw />,
+      title: "Reprompt Model",
+      description:
+        "Refine and regenerate prompts to improve clarity, tone, and outcome.",
+      url: "/ai-agents/reprompt-model",
+    },
+    {
+      icon: <Settings />,
+      title: "System Improvement",
+      description:
+        "Optimize system behavior through fine-tuning, testing, and performance analysis.",
+      url: "/ai-agents/system-improvement",
+    },
+
     // {
     //   icon: <MessageCircle />,
     //   title: "Chatbot Development",
@@ -133,11 +159,11 @@ export default function HireSection() {
                     <h3 className="title">{service.title}</h3>
                     <p className="description">{service.description}</p>
                     <div className="ratting-div">
-                      <Star/>
-                      <Star/>
-                      <Star/>
-                      <Star/>
-                      <Star/>
+                      <Star />
+                      <Star />
+                      <Star />
+                      <Star />
+                      <Star />
                     </div>
                   </div>
                   <Link

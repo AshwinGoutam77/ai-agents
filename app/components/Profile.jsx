@@ -6,11 +6,7 @@ const Profile = () => {
   const { user } = useUser();
   const [open, setOpen] = useState(false);
 
-  if (!user) {
-    return (
-      <div className="w-12 h-12 rounded-full bg-gray-300 animate-pulse"></div>
-    );
-  }
+
  const handleLogout = async () => {
     try {
       await fetch("/api/auth/logout", { method: "POST" });

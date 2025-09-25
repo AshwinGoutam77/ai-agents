@@ -117,7 +117,7 @@ export default function LoginForm() {
   return (
     <div className="flex-1 flex flex-col justify-center px-6 py-12 lg:px-8 bg-white relative overflow-hidden">
       {/* Background Elements */}
-      <Dialog/>
+      <Dialog />
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-blue-100/30 to-purple-100/30 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 left-20 w-48 h-48 bg-gradient-to-br from-teal-100/30 to-blue-100/30 rounded-full blur-3xl"></div>
@@ -237,7 +237,11 @@ export default function LoginForm() {
                 <p className="mt-1 text-sm text-red-600">{errors.password}</p>
               )}
             </div>
-
+            {errors.form && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.form}
+              </p>
+            )}
             <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
