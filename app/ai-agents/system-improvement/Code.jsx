@@ -4,8 +4,8 @@ import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import AgentsHero from "@/app/components/AgentsHero";
 import Container from "@/app/components/Container";
-import Cookies from "js-cookie";
-import { useTool } from "@/hooks/useTool";
+import Cookies from "js-cookie"; 
+import { useTool} from "../../../hooks/useTool"
 import { saveChat } from "@/hooks/useChatHistory";
 const Code = ({ token }) => {
   const [projectDescription, setProjectDescription] = useState("");

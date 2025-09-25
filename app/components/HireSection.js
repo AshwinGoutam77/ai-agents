@@ -11,13 +11,11 @@ import {
   Text,
   HeartPulse,
   Star,
-} from "lucide-react"; 
-import { isUserLoggedIn } from "@/lib/authClient"; 
+} from "lucide-react";  
 import Link from "next/link";
 
 export default function HireSection() {
-  const [isVisible, setIsVisible] = useState(false); 
-  const loggedIn = isUserLoggedIn()
+  const [isVisible, setIsVisible] = useState(false);  
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -135,11 +133,11 @@ export default function HireSection() {
                     <h3 className="title">{service.title}</h3>
                     <p className="description">{service.description}</p>
                     <div className="ratting-div">
-                      <Star />
-                      <Star />
-                      <Star />
-                      <Star />
-                      <Star />
+                      <Star/>
+                      <Star/>
+                      <Star/>
+                      <Star/>
+                      <Star/>
                     </div>
                   </div>
                   <Link
