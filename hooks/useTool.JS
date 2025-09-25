@@ -12,5 +12,5 @@ export async function useTool(toolName, email) {
     return { allowed: false };
   }
 
-  return checkData;
+  return checkData; 
 }
