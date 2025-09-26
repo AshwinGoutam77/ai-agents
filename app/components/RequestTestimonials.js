@@ -78,7 +78,7 @@ export default function RequestTestimonials() {
           </p>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="relative bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100">
             {testimonials.map((testimonial, index) => (
               <div

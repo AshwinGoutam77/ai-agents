@@ -37,7 +37,7 @@ export default function HeroSection() {
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-dark mb-4 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-dark mb-4 max-w-5xl mx-auto leading-relaxed">
               Discover and Hire AI Agents for every Task, Anytime, Anywhere
             </p>
 

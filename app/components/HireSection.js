@@ -15,6 +15,15 @@ import {
   RotateCw,
   PenLine,
   Mail,
+  Video,
+  BookOpen,
+  Briefcase,
+  Scissors,
+  FileText,
+  Gift,
+  UserCheck,
+  Microscope,
+  ClipboardList,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -36,7 +45,7 @@ export default function HireSection() {
     return () => observer.disconnect();
   }, []);
 
-  const AiservicesData = [
+  const AgentsData = [
     {
       icon: <Mail />,
       title: "Business Email Drafting",
@@ -65,55 +74,68 @@ export default function HireSection() {
         "Optimize system behavior through fine-tuning, testing, and performance analysis.",
       url: "/ai-agents/system-improvement",
     },
-
-    // {
-    //   icon: <MessageCircle />,
-    //   title: "Chatbot Development",
-    //   description:
-    //     "Create intelligent conversational agents powered by natural language understanding.",
-    // },
-    // {
-    //   icon: <BarChart3 />,
-    //   title: "Data Analysis & Visualization",
-    //   description:
-    //     "Extract insights and create visualizations from complex datasets.",
-    // },
-    // {
-    //   icon: <Image />,
-    //   title: "Computer Vision",
-    //   description:
-    //     "Enable machines to recognize and process images and videos for object detection, recognition, and more.",
-    // },
-    // {
-    //   icon: <Mic />,
-    //   title: "Speech Recognition",
-    //   description:
-    //     "Transcribe and understand spoken language using automatic speech recognition (ASR) models.",
-    // },
-    // {
-    //   icon: <TrendingUp />,
-    //   title: "Predictive Analytics",
-    //   description:
-    //     "Forecast future trends using historical data and machine learning models.",
-    // },
-    // {
-    //   icon: <Text />,
-    //   title: "Natural Language Processing (NLP)",
-    //   description:
-    //     "Analyze and understand text data with sentiment analysis, keyword extraction, and language modeling.",
-    // },
-    // {
-    //   icon: <ShieldCheck />,
-    //   title: "AI for Cybersecurity",
-    //   description:
-    //     "Detect and prevent threats using anomaly detection and real-time threat intelligence.",
-    // },
-    // {
-    //   icon: <HeartPulse />,
-    //   title: "AI in Healthcare",
-    //   description:
-    //     "Support diagnostics, personalized treatment, and patient care with AI models trained on medical data.",
-    // },
+    {
+      icon: <Video />,
+      title: "Audio Video Analyzer",
+      description:
+        "Analyze and extract insights from audio and video content efficiently.",
+      url: "/ai-agents/audio-video-analyzer",
+    },
+    {
+      icon: <BookOpen />,
+      title: "Blog Summarizer",
+      description:
+        "Summarize long-form blog content into concise, easy-to-read formats.",
+      url: "/ai-agents/blog-summarizer",
+    },
+    {
+      icon: <Briefcase />,
+      title: "Business Name Generator",
+      description:
+        "Generate catchy and relevant business names based on your niche and keywords.",
+      url: "/ai-agents/business-name-generator",
+    },
+    {
+      icon: <Scissors />,
+      title: "Extract Audio from Video",
+      description: "Easily extract and download audio from any video file.",
+      url: "/ai-agents/extract-audio-from-video",
+    },
+    {
+      icon: <FileText />,
+      title: "Generate Cover Letter",
+      description:
+        "Create personalized cover letters aligned with your resume and job application.",
+      url: "/ai-agents/generate-cover-letter",
+    },
+    {
+      icon: <Gift />,
+      title: "Gift Finder",
+      description:
+        "Find the perfect gift ideas for any occasion or recipient with AI assistance.",
+      url: "/ai-agents/gift-finder",
+    },
+    {
+      icon: <UserCheck />,
+      title: "HR Resume Analyzer",
+      description:
+        "Analyze resumes for key qualifications, formatting, and HR preferences.",
+      url: "/ai-agents/hr-resume-analyzer",
+    },
+    {
+      icon: <Microscope />,
+      title: "Research Paper Explainer",
+      description:
+        "Break down complex research papers into digestible summaries.",
+      url: "/ai-agents/research-paper-explainer",
+    },
+    {
+      icon: <ClipboardList />,
+      title: "Resume Analyzer",
+      description:
+        "Evaluate resumes for structure, keywords, and role alignment.",
+      url: "/ai-agents/resume-analyzer",
+    },
   ];
   return (
     <section
@@ -148,7 +170,7 @@ export default function HireSection() {
 
           {/* Features Grid */}
           <div className="grid lg:grid-cols-3 sm:grid-cols-2 grid-cols-1  gap-x-5 gap-y-20 mt-32">
-            {AiservicesData.map((service, index) => (
+            {AgentsData.map((service, index) => (
               <div
                 className="ai-service-card-wrapper relative group duration-300"
                 key={index}

@@ -103,7 +103,7 @@ export default function RequestForm() {
     <section id="request-form" className="py-24 bg-white relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50/30 to-blue-50/20"></div>
 
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={`text-center mb-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >

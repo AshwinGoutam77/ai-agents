@@ -67,7 +67,7 @@ export default function RequestFAQ() {
 
   return (
     <section id="request-faq" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
         >

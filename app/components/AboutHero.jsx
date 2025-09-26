@@ -67,7 +67,7 @@ export default function AboutHero() {
                         </span>
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-4xl mx-auto leading-relaxed">
+                    <p className="text-xl md:text-2xl text-gray-600 mb-12 max-w-5xl mx-auto leading-relaxed">
                         We're building the future where AI agents work alongside humans to create unprecedented productivity and
                         innovation. Our mission is to democratize AI and make it accessible to everyone.
                     </p>

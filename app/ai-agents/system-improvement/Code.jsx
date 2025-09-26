@@ -6,8 +6,7 @@ import Container from "@/app/components/Container";
 import Cookies from "js-cookie";
 import { saveChat } from "@/hooks/useChatHistory";
 import { useTool } from "../../../hooks/useTool";
-import "../tools.css";
-import Loader from "@/components/ui/Loader";
+import "../tools.css"; 
 const Code = ({ token }) => {
   const [projectDescription, setProjectDescription] = useState("");
   const [suggestionType, setSuggestionType] = useState("");
@@ -134,8 +133,7 @@ const Code = ({ token }) => {
           ) : (
             ""
           )}
-
-          <Loader/>
+ 
         </Container>
       </div>
     </>
