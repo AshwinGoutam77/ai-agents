@@ -174,35 +174,47 @@ const CoverLetterGenerator = ({ token }) => {
           )}
 
           {result && !loading && (
-            <div className="mt-10 space-y-6">
+            <div className="my-10 space-y-6 relative">
               <h2 className="text-2xl font-semibold mb-4">Preview</h2>
-              <div className="bg-gray-50 border rounded p-6 whitespace-pre-line">
+              <div className="bg-gray-50 border rounded p-6 whitespace-pre-line select-none max-h-96 overflow-hidden">
                 {result.preview}
               </div>
 
-              {result.public_urls?.length > 0 && (
-                <div className="mt-6">
-                  <h3 className="text-xl font-semibold mb-2">Download Files</h3>
-                  <div className="flex flex-wrap gap-4">
-                    {result.public_urls.map((url, idx) => {
-                        const fileExtension = url.split('.').pop();
-                      return (
-                        <a
-                          key={idx}
-                          href={`https://api.devwings.com${url
-                            .split("/")
-                            .pop()}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-                        >
-                         {`Download ${fileExtension.toUpperCase()} File `}
-                        </a>
-                      );
-                    })}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/90 pointer-events-none"></div>
+              <div
+                className="absolute bottom-0 left-0 right-0 min-h-32  h-full max-h-60  backdrop-blur-sm bg-white/60"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.9))",
+                }}
+              ></div>
+
+              {/* Download button overlay */}
+              <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 z-10 ">
+                {result.public_urls?.length > 0 && (
+                  <div className="mt-6">
+                    <h3 className="text-xl text-center font-semibold mb-2">
+                      Download Files
+                    </h3>
+                    <div className="flex flex-wrap gap-4">
+                      {result.public_urls.map((url, idx) => {
+                        const fileExtension = url.split(".").pop();
+                        return (
+                          <a
+                            key={idx}
+                            href={`https://api.devwings.com${url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                          >
+                            {`Download ${fileExtension.toUpperCase()} File `}
+                          </a>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           )}
         </div>

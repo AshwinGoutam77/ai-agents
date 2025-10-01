@@ -52,7 +52,7 @@ export default function Header() {
           ) : (
             <Link href="/login" className="hidden md:block">
               <button className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2.5 rounded-full hover:from-gray-800 hover:to-gray-600 transition-all duration-300 font-medium mt-2">
-                Sign Up
+                Sign In
               </button>
             </Link>
           )}

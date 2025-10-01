@@ -1,15 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import {
-  ShieldCheck,
-  Brain,
-  MessageCircle,
-  BarChart3,
-  Image,
-  Mic,
-  TrendingUp,
-  Text,
-  HeartPulse,
+import { 
   Star,
   Settings,
   RotateCw,
@@ -24,6 +15,7 @@ import {
   UserCheck,
   Microscope,
   ClipboardList,
+  NotebookTabs,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -136,6 +128,13 @@ export default function HireSection() {
         "Evaluate resumes for structure, keywords, and role alignment.",
       url: "/ai-agents/resume-analyzer",
     },
+    {
+      icon:<NotebookTabs />,
+      title: "AI Notes Generator",
+      description:
+        "Instantly converts spoken or written content into clear, organized notes using advanced artificial intelligence for efficient learning.",
+      url: "/ai-agents/notes-generator",
+    },
   ];
   return (
     <section
@@ -151,7 +150,7 @@ export default function HireSection() {
         ></div>
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
         <div
           className={`text-center transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"

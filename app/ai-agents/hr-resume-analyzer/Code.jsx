@@ -17,8 +17,27 @@ const ResumeAnalyzer = ({ token }) => {
   const [error, setError] = useState("");
   const [expandedIndex, setExpandedIndex] = useState(null);
 
+  // Handle new file uploads (append instead of replace)
   const handleFileChange = (e) => {
-    setFiles(Array.from(e.target.files));
+    const newFiles = Array.from(e.target.files);
+
+    // Prevent duplicates by checking name+size+lastModified
+    const uniqueFiles = newFiles.filter(
+      (file) =>
+        !files.some(
+          (f) =>
+            f.name === file.name &&
+            f.size === file.size &&
+            f.lastModified === file.lastModified
+        )
+    );
+
+    setFiles((prevFiles) => [...prevFiles, ...uniqueFiles]);
+  };
+
+  // Remove a selected file
+  const handleRemoveFile = (index) => {
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
@@ -117,10 +136,25 @@ const ResumeAnalyzer = ({ token }) => {
                 multiple
                 className="w-full"
               />
+
               {files.length > 0 && (
-                <p className="mt-2 text-gray-600 text-sm">
-                  {files.map((file) => file.name).join(", ")}
-                </p>
+                <ul className="mt-3 space-y-2 text-gray-700 text-sm">
+                  {files.map((file, index) => (
+                    <li
+                      key={index}
+                      className="flex items-center justify-between bg-gray-100 px-3 py-2 rounded"
+                    >
+                      <span>{file.name}</span>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveFile(index)}
+                        className="text-red-500 hover:text-red-700 text-xs ml-3"
+                      >
+                        ✕ Remove
+                      </button>
+                    </li>
+                  ))}
+                </ul>
               )}
             </div>
 
@@ -172,7 +206,9 @@ const ResumeAnalyzer = ({ token }) => {
 
           {result.length > 0 && !loading && (
             <div className="mt-10 space-y-6">
-              <h2 className="text-2xl font-semibold mb-4">Shortlisted Candidates</h2>
+              <h2 className="text-2xl font-semibold mb-4">
+                Shortlisted Candidates
+              </h2>
               {result.map((candidate, idx) => (
                 <div
                   key={idx}
@@ -228,7 +264,9 @@ const ResumeAnalyzer = ({ token }) => {
                       setExpandedIndex(expandedIndex === idx ? null : idx)
                     }
                   >
-                    {expandedIndex === idx ? "Hide Reason" : "Why This Candidate?"}
+                    {expandedIndex === idx
+                      ? "Hide Reason"
+                      : "Why This Candidate?"}
                   </button>
                   {expandedIndex === idx && (
                     <p className="mt-2 text-gray-700 border-l-4 border-blue-300 pl-4">
